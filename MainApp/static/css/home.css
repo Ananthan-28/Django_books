@@ -1,0 +1,37 @@
+body{
+  padding: 0;
+  margin:0;
+}
+.container-fluid {
+    padding-left: 0;
+    padding-right: 0;
+}
+.input-group{
+  width:40%;
+}
+.s_bar{
+    border-top-left-radius: 14px;
+    border-bottom-left-radius: 14px;
+}
+.btn{
+  border-top-right-radius: 14px;
+  border-bottom-right-radius: 14px;
+}
+.header {
+    text-align: center;
+    margin-bottom: 20px;
+    background-color: rgb(24, 119, 242);
+    color:white;
+
+}
+.image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-img-top {
+    width: 50%;
+    height: 210px;
+    object-fit: contains;
+}

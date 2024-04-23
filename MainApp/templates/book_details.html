@@ -1,0 +1,87 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Product Details</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{% static 'css/book_details.css' %}">
+    <style>
+<!--        div{-->
+<!--            border:1px solid black;-->
+<!--        }-->
+        
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+      <div class="header mb-5 position-relative">
+        <h1 class="mb-4">Book Store</h1>
+        <div class="position-absolute">
+            <a href="{% url 'home' %}" class="text-decoration-none text-light"><button class="btn btn-success">Home</button></a>
+            <a href="{% url 'logout' %}" class="text-decoration-none text-light"><button class="btn btn-danger">Log Out</button></a>
+        </div>
+      </div>
+      <div class="row d-flex justify-content-around align-items-center">
+        <div class="col-lg-10 col-md-8 mb-4 ">
+            <div class="card">
+                {% for i in book_data %}
+                    <div class="card-body">
+                        <div class="image-container d-flex flex-column justify-content-center align-items-center">
+                            <img src="{{i.book_image.url}}" class="card-img-top image pb-4" alt="book_image">
+                            <form method="POST">
+                                {% csrf_token %}
+                                <div>
+                                    <label>Enter order Quantity:</label>
+                                    <input type="number" name="order_quantity" value=1>
+                                </div>
+                        </div><br>
+
+                                <h5 class="card-title">{{i.book_name}}</h5>
+                                <p class="card-text mb-3">{{i.book_author}}</p>
+                                <p class="card-text mb-3">{{i.book_category}}</p>
+                                <p class="card-text mb-3">{{i.book_description}}</p>
+                                <p class="card-text">$ {{i.book_price}}</p>
+
+                                <div class="purchase-option">
+                                      <button type="submit" name="add_cart"  class="btn btn-success"><i class="bi bi-cart"></i> Add to cart</button>
+                                      <button type="submit" name="buy_now"  class="btn btn-warning"><i class="bi bi-bag-fill"></i> Buy Now</button>
+                                </div>
+
+                            </form>
+
+                {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>    
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-10">
+                {% for i in book_data %}
+                    <form method="POST" action="{% url 'review_url' i.book_id %}">
+                        {% csrf_token %}
+                        <input type="text" name="review-field" placeholder="Enter your review" style="width:100%; height:150px; margin-bottom:10px;">
+                        <button type="submit" class="btn btn-outline-primary">Submit</button>
+                    </form>
+                {% endfor %}
+            </div>
+        </div><br>
+        {% for i in review_data %}
+            <div class="=row">
+                <div class="col-10">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title text-muted">Review by {{i.user_id.Username}}</h5>
+                            <p class="card-text">{{i.review_content}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div><br>
+        {% endfor %}
+    </div>
+</body>
+</html>
+
+    
